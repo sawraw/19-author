@@ -6,7 +6,7 @@ const INITIALIZE = 'INITIALIZE_USERS';
 const CREATE     = 'CREATE_USER';
 export const REMOVE = 'REMOVE_USER';
 const UPDATE     = 'UPDATE_USER';
-const SET_USER = "SET_USER";
+// const SET_USER = "SET_USER";
 
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -15,10 +15,10 @@ const init  = users => ({ type: INITIALIZE, users });
 const create = user  => ({ type: CREATE, user });
 const remove = id    => ({ type: REMOVE, id });
 const update = user  => ({ type: UPDATE, user });
-const setUser = loginInfo => ({
-  type: SET_USER,
-  loginInfo
-})
+// const setUser = loginInfo => ({
+//   type: SET_USER,
+//   loginInfo
+// })
 
 
 /* ------------       REDUCER     ------------------ */
@@ -71,10 +71,3 @@ export const updateUser = (id, user) => dispatch => {
        .then(res => dispatch(update(res.data)))
        .catch(err => console.error(`Updating user: ${user} unsuccesful`, err));
 };
-
-export const setCurrentUser = (loginInfo) => dispatch => {
-  axios.post('/api/login', loginInfo)
-    .then(res => dispatch(setUser(res.data)))
-    .catch(err => console.error('login unsuccessful'));
-  
-}

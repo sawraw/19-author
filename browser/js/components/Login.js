@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import {setCurrentUser} from '../redux/users';
+import {setCurrentUser} from '../redux/user';
 
 /* -----------------    COMPONENT     ------------------ */
 
