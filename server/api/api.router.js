@@ -10,6 +10,8 @@ var router = require('express').Router();
 //   next();
 // });
 
+router.use('/logout', require('./logout.router'));
+
 router.use('/login', require('./login.router'));
 
 router.use('/signup', require('./signup.router'));

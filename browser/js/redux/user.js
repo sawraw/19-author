@@ -6,7 +6,7 @@ const LOG_OUT = "LOG_OUT"
 
 const setUser = loginInfo => ({
   type: SET_USER,
-  loginInfo,
+  loginInfo : loginInfo,
 })
 
 const createUser = signupInfo => ({
@@ -14,7 +14,7 @@ const createUser = signupInfo => ({
   signupInfo,
 })
 
-const logout = logout => ({
+const logoutUser = () => ({
   type: LOG_OUT,
 })
 
@@ -28,6 +28,8 @@ export default function reducer (user = {}, action) {
       break;
 
     case SET_USER:
+      console.log("action is...", action)
+      console.log(action.loginInfo.email)
       user.email = action.loginInfo.email;
       user.password = action.loginInfo.password;
       break;
@@ -43,12 +45,30 @@ export default function reducer (user = {}, action) {
   return user;
 }
 
-export const setCurrentUser = (loginInfo) => dispatch => {
+export const setCurrentUser = loginInfo => dispatch => {
   axios.post('/api/login', loginInfo)
-    .then(res => dispatch(setUser(res.data)))
+    .then(res => res.data)
+    .then(user =>   dispatch(setUser(user)))
     .catch(err => console.error('login unsuccessful'));
 
 };
+
+// export const setCurrentUser = (loginInfo) => {
+//   console.log("loginInfo in user.js is...", loginInfo);
+//   return (dispatch, getState) => {
+
+//     return axios.post(`/api/login`)
+//       .then(res => res.data)
+//       .then(user => {
+//         console.log("User in user.js is...", user);
+//         const loginInfo = getState().loginInfo;
+//         console.log("loginInfo on line 65 in user.js is", loginInfo);
+//         dispatch(setUser(loginInfo));
+//     })
+//       .catch((err => console.error('login unsuccessful')))
+//     }
+// };
+
 
 export const makeNewUser = (signupInfo) => dispatch => {
   axios.post('/api/signup', signupInfo)
@@ -58,7 +78,7 @@ export const makeNewUser = (signupInfo) => dispatch => {
 
 export const logout = () => dispatch => {
   axios.post('/api/logout')
-  .then(res => dispatch(logout()))
-
-
+  .then(res => res.data)
+  .then(user => dispatch(logoutUser()))
+  .catch(err => console.error('signout was unsuccessful'));
 }

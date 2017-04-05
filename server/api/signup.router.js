@@ -8,7 +8,7 @@ router.post('/', function(req,res,next){
     .then(function(createdUser){
         if (createdUser){
             req.session.userId = createdUser.id;
-            res.sendStatus(204);
+            res.json(createdUser);
         }
         else res.sendStatus(401);
     })

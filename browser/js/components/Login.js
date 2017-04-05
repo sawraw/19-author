@@ -66,6 +66,7 @@ class Login extends React.Component {
       email: event.target.email.value,
       password: event.target.password.value
     }
+    console.log("login info in login.js...", loginInfo);
     this.props.setCurrentUser(loginInfo);
   }
 }
